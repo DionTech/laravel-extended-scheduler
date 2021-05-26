@@ -4,8 +4,10 @@
 namespace DionTech\Scheduler;
 
 
+use DionTech\Scheduler\Contracts\ScheduledCommandRepositoryContract;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\ServiceProvider;
+use DionTech\Scheduler\Repositories\ScheduledCommandRepository;
 
 class SchedulerServiceProvider extends ServiceProvider
 {
@@ -16,7 +18,11 @@ class SchedulerServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(ScheduledCommandRepositoryContract::class, function() {
+            $class = config('scheduler.driver');
+            dump($class);
+            return new $class;
+        });
     }
 
     /**
@@ -33,8 +39,7 @@ class SchedulerServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
 
         $this->callAfterResolving(Schedule::class, function (Schedule $schedule) {
-            //$schedule->command('some:command')->everyMinute();
-            dump('hey ho');
+            app()->get(ScheduledCommandRepositoryContract::class)->getCommands($schedule);
         });
     }
 }

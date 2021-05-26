@@ -16,8 +16,10 @@ class ScheduledCommandTable extends Migration
         Schema::create('scheduled_commands', function(Blueprint $table) {
             $table->id();
             $table->string('method');
-            $table->text('arguments');
-            $table->text('frequency');
+            $table->longText('arguments');
+            $table->longText('frequency');
+
+            $table->timestamps();
         });
     }
 
