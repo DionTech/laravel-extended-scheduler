@@ -6,7 +6,7 @@ configurations via a config file only, cause then we cannot share the same repo 
 # installation
 
 ```shell
-composer require diontech/laravel-extended/scheduler
+composer require diontech/laravel-extended-scheduler
 ```
 
 ```shell
