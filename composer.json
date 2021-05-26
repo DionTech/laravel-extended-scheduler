@@ -1,6 +1,6 @@
 {
     "name": "diontech/laravel-extended-scheduler",
-    "description": "This package allows you to configure the scheduled tasks of the app via (database) model. It was developed to avoid handling these\nconfigurations via a config file only, cause then we cannot share the same repo to n server instances when running different tasks is needed.",
+    "description": "This package allows you to configure the scheduled tasks of the app via (database) model. It was developed to avoid handling these\nconfigurations via a config file only, cause then we cannot share the same repo to n server instances when running different tasks is needed at each server.",
     "authors": [
         {
             "name": "Daniel Koch",

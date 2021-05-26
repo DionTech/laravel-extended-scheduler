@@ -1,7 +1,7 @@
 # Extend Laravel scheduler to can config tasks via model
 
 This package allows you to configure the scheduled tasks of the app via (database) model. It was developed to avoid handling these
-configurations via a config file only, cause then we cannot share the same repo to n server instances when running different tasks is needed.
+configurations via a config file only, cause then we cannot share the same repo to n server instances when running different tasks is needed at each server.
 
 # installation
 
