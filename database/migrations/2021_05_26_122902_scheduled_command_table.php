@@ -13,7 +13,12 @@ class ScheduledCommandTable extends Migration
      */
     public function up()
     {
-
+        Schema::create('scheduled_commands', function(Blueprint $table) {
+            $table->id();
+            $table->string('method');
+            $table->text('arguments');
+            $table->text('frequency');
+        });
     }
 
     /**
@@ -23,6 +28,6 @@ class ScheduledCommandTable extends Migration
      */
     public function down()
     {
-
+        Schema::dropIfExists('scheduled_commands');
     }
 }

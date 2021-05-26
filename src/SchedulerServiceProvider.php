@@ -26,6 +26,10 @@ class SchedulerServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->publishes([
+            __DIR__.'/../config/scheduler.php' => config_path('scheduler.php'),
+        ]);
+
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
 
         $this->callAfterResolving(Schedule::class, function (Schedule $schedule) {
