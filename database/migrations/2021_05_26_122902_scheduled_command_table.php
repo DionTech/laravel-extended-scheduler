@@ -17,7 +17,7 @@ class ScheduledCommandTable extends Migration
             $table->id();
             $table->string('method');
             $table->longText('arguments');
-            $table->longText('frequency');
+            $table->longText('fluent');
             $table->boolean('is_active')->default(0)->index();
             $table->text('description')->nullable();
 

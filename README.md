@@ -23,7 +23,7 @@ At the moment you can do something similar to the following:
             'arguments' => [
                 'schedule:list'
             ],
-            'frequency' => [
+            'fluent' => [
                 'cron' => ['* * * * *']
             ],
             'is_active' => true
@@ -34,7 +34,7 @@ At the moment you can do something similar to the following:
             'arguments' => [
                 'foo'
             ],
-            'frequency' => [
+            'fluent' => [
                 'weekdays',
                 'hourly',
                 'timezone' => ['America/Chicago'],
@@ -49,7 +49,7 @@ At the moment you can do something similar to the following:
                 'test:command',
                 ['Taylor', '--force']
             ],
-            'frequency' => [
+            'fluent' => [
                 'daily'
             ],
             'is_active' => true
@@ -60,7 +60,7 @@ At the moment you can do something similar to the following:
             'arguments' => [
                 'new \App\Jobs\TestJob', 'sqs'
             ],
-            'frequency' => [
+            'fluent' => [
                 'everyFiveMinutes'
             ],
             'is_active' => true

@@ -24,7 +24,7 @@ class BaseModelTest extends \Tests\TestCase
             'arguments' => [
                 'foo'
             ],
-            'frequency' => [
+            'fluent' => [
                 'cron' => [
                     '* * * * *'
                 ]
@@ -48,7 +48,7 @@ class BaseModelTest extends \Tests\TestCase
             'arguments' => [
                 'foo'
             ],
-            'frequency' => [
+            'fluent' => [
                 'cron' => [
                     '* * * * *'
                 ]
@@ -120,7 +120,7 @@ class BaseModelTest extends \Tests\TestCase
             'arguments' => [
                 'schedule:list'
             ],
-            'frequency' => [
+            'fluent' => [
                 'cron' => ['* * * * *']
             ],
             'is_active' => true
@@ -131,7 +131,7 @@ class BaseModelTest extends \Tests\TestCase
             'arguments' => [
                 'foo'
             ],
-            'frequency' => [
+            'fluent' => [
                 'weekdays',
                 'hourly',
                 'timezone' => ['America/Chicago'],
@@ -145,7 +145,7 @@ class BaseModelTest extends \Tests\TestCase
             'arguments' => [
                 'new \App\Jobs\TestJob', 'sqs'
             ],
-            'frequency' => [
+            'fluent' => [
                 'everyFiveMinutes'
             ],
             'is_active' => true
@@ -157,8 +157,11 @@ class BaseModelTest extends \Tests\TestCase
                 'test:command',
                 ['Taylor', '--force']
             ],
-            'frequency' => [
-                'daily'
+            'fluent' => [
+                'daily',
+                'evenInMaintenanceMode',
+                'appendOutputTo' => ['/path/to/log'],
+                'emailOutputTo' => ['daniel.koch@publicare.de']
             ],
             'is_active' => true
         ]);
