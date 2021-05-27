@@ -18,9 +18,10 @@ class SchedulerServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->mergeConfigFrom(__DIR__.'/../config/scheduler.php', 'scheduler');
+
         $this->app->bind(ScheduledCommandRepositoryContract::class, function() {
             $class = config('scheduler.driver');
-            dump($class);
             return new $class;
         });
     }
@@ -34,7 +35,7 @@ class SchedulerServiceProvider extends ServiceProvider
     {
         $this->publishes([
             __DIR__.'/../config/scheduler.php' => config_path('scheduler.php'),
-        ]);
+        ], 'config');
 
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
 

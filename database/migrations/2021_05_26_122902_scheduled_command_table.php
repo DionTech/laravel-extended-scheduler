@@ -18,6 +18,8 @@ class ScheduledCommandTable extends Migration
             $table->string('method');
             $table->longText('arguments');
             $table->longText('frequency');
+            $table->boolean('is_active')->default(0)->index();
+            $table->text('description')->nullable();
 
             $table->timestamps();
         });

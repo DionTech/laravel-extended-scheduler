@@ -17,7 +17,7 @@ class ScheduledCommandRepository implements ScheduledCommandRepositoryContract
      */
     public function getCommands(Schedule $schedule)
     {
-        foreach (ScheduledCommand::cursor() as $cmd) {
+        foreach (ScheduledCommand::where('is_active', 1)->cursor() as $cmd) {
             $base = $this->call($schedule, $cmd->method, $cmd->arguments);
 
             foreach ($cmd->frequency as $frequencyKey => $frequencyValue) {

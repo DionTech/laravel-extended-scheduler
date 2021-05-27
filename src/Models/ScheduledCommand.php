@@ -11,11 +11,12 @@ class ScheduledCommand extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['method', 'arguments', 'frequency'];
+    protected $fillable = ['method', 'arguments', 'frequency', 'is_active', 'description'];
 
     protected $casts = [
         'arguments' => 'array',
-        'frequency' => 'array'
+        'frequency' => 'array',
+        'is_active' => 'boolean'
     ];
 
     protected $attributes = [
