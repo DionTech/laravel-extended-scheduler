@@ -17,13 +17,9 @@ class ScheduledCommandRepository implements ScheduledCommandRepositoryContract
      */
     public function getCommands(Schedule $schedule)
     {
-        foreach (ScheduledCommand::whereIsActive(true)->cursor() as $cmd) {
-            $cmd->setSchedule($schedule)->event();
-        }
-    }
+        ScheduledCommand::whereIsActive(true)->cursor()->each(
+            fn($cmd) => $cmd->setSchedule($schedule)->event()
+        );
 
-    protected function call(Schedule $schedule, $method, $arguments)
-    {
-        return $schedule->{$method}(...$arguments);
     }
 }
