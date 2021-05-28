@@ -37,8 +37,9 @@ class ScheduledCommand extends Model
         $schedule = app()->get(Schedule::class);
 
         $arguments = $this->arguments;
-        $method = array_pop($arguments);
+        $method = array_shift($arguments);
 
+        /*
         if (count($arguments)) {
             $method .= ' '.$schedule->compileParameters($arguments);
         }
@@ -46,9 +47,9 @@ class ScheduledCommand extends Model
         $eventMutex =  $container->bound(EventMutex::class)
             ? $container->make(EventMutex::class)
             : $container->make(CacheEventMutex::class);
+        */
 
-
-        $event = new Event($eventMutex, $method);
+        $event = $schedule->exec($method, $arguments);
 
         $this->fluently($event);
 
