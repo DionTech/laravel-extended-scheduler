@@ -22,8 +22,6 @@ jobs:
       run: |
         composer require "laravel/framework:8.*" --no-interaction --no-update
         composer update --prefer-dist --no-interaction --no-suggest
-    - name: Directory Permissions
-      run: chmod -R 777 storage bootstrap/cache
     - name: Create Database
       run: |
         mkdir -p database
