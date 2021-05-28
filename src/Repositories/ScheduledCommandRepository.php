@@ -20,14 +20,7 @@ class ScheduledCommandRepository implements ScheduledCommandRepositoryContract
         foreach (ScheduledCommand::where('is_active', 1)->cursor() as $cmd) {
             $base = $this->call($schedule, $cmd->method, $cmd->arguments);
 
-            foreach ($cmd->fluent as $fluentKey => $fluentValue) {
-                if (is_array($fluentValue)) {
-                    $base->{$fluentKey}(...$fluentValue);
-                    continue;
-                }
-
-                $base->{$fluentValue}();
-            }
+            $cmd->fluently($base);
         }
     }
 

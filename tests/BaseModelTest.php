@@ -161,7 +161,7 @@ class BaseModelTest extends \Tests\TestCase
                 'daily',
                 'evenInMaintenanceMode',
                 'appendOutputTo' => ['/path/to/log'],
-                'emailOutputTo' => ['daniel.koch@publicare.de']
+                'emailOutputTo' => ['daniel.koch@diontech.de']
             ],
             'is_active' => true
         ]);
