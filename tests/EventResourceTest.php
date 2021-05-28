@@ -25,32 +25,22 @@ class EventResourceTest extends \Tests\TestCase
                 'foo'
             ],
             'fluent' => [
-                'weekdays',
-                'hourly',
-            ]
+                'cron' => [
+                    '* * * * *'
+                ]
+            ],
+            'is_active' => true
         ]);
 
         $this->assertInstanceOf(\Illuminate\Console\Scheduling\Event::class, $model->event());
 
         $event = $model->event();
-
-        dump($event->command, $event->expression);
+        $this->assertEquals('* * * * *', $event->expression);
     }
 
-    protected function setUpScheduler()
+    public function test_foo_example()
     {
-        ScheduledCommand::create([
-            'method' => 'command',
-            'arguments' => [
-                'schedule:list'
-            ],
-            'fluent' => [
-                'cron' => ['* * * * *']
-            ],
-            'is_active' => true
-        ]);
-
-        ScheduledCommand::create([
+        $model = ScheduledCommand::create([
             'method' => 'command',
             'arguments' => [
                 'foo'
@@ -64,7 +54,14 @@ class EventResourceTest extends \Tests\TestCase
             'is_active' => true
         ]);
 
-        ScheduledCommand::create([
+        $event = $model->event();
+        $this->assertEquals('0 * * * 1-5', $event->expression);
+        $this->assertTrue(Str::is('*foo', $event->command));
+    }
+
+    public function test_job_example()
+    {
+        $model = ScheduledCommand::create([
             'method' => 'job',
             'arguments' => [
                 'new \App\Jobs\TestJob', 'sqs'
@@ -75,7 +72,15 @@ class EventResourceTest extends \Tests\TestCase
             'is_active' => true
         ]);
 
-        ScheduledCommand::create([
+        //test job
+        $event = $model->event();
+        $this->assertEquals('*/5 * * * *', $event->expression);
+        $this->assertTrue(Str::is('*new \App\Jobs\TestJob', $event->command));
+    }
+
+    public function test_command_with_argument_example()
+    {
+        $model = ScheduledCommand::create([
             'method' => 'command',
             'arguments' => [
                 'test:command',
@@ -89,5 +94,30 @@ class EventResourceTest extends \Tests\TestCase
             ],
             'is_active' => true
         ]);
+
+        $event = $model->event();
+        $this->assertTrue(Str::is('* test:command*', $event->command));
+        $this->assertEquals('0 0 * * *', $event->expression);
+        $this->assertTrue(Str::is('*Taylor*', $event->command));
+        $this->assertTrue(Str::is('*--force*', $event->command));
     }
+
+    public function test_schedule_list_example()
+    {
+        $model = ScheduledCommand::create([
+            'method' => 'command',
+            'arguments' => [
+                'schedule:list'
+            ],
+            'fluent' => [
+                'cron' => ['* * * * *']
+            ],
+            'is_active' => true
+        ]);
+
+        $event = $model->event();
+        $this->assertTrue(Str::is('*schedule:list', $event->command));
+        $this->assertEquals('* * * * *', $event->expression);
+    }
+
 }

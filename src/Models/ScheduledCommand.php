@@ -8,6 +8,7 @@ use Illuminate\Console\Application;
 use Illuminate\Console\Scheduling\CacheEventMutex;
 use Illuminate\Console\Scheduling\Event;
 use Illuminate\Console\Scheduling\EventMutex;
+use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Container\Container;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -33,11 +34,13 @@ class ScheduledCommand extends Model
     public function event(): Event
     {
         $container = Container::getInstance();
+        $schedule = app()->get(Schedule::class);
+
         $arguments = $this->arguments;
         $method = array_pop($arguments);
 
         if (count($arguments)) {
-            $method .= ' '.$this->compileParameters($arguments);
+            $method .= ' '.$schedule->compileParameters($arguments);
         }
 
         $eventMutex =  $container->bound(EventMutex::class)
@@ -47,6 +50,13 @@ class ScheduledCommand extends Model
 
         $event = new Event($eventMutex, $method);
 
+        $this->fluently($event);
+
+        return $event;
+    }
+
+    public function fluently(Event &$event)
+    {
         foreach ($this->fluent as $fluentKey => $fluentValue) {
             if (is_array($fluentValue)) {
                 $event->{$fluentKey}(...$fluentValue);
@@ -56,21 +66,6 @@ class ScheduledCommand extends Model
             $event->{$fluentValue}();
         }
 
-        return $event;
-    }
-
-    protected function compileParameters(array $parameters)
-    {
-        return collect($parameters)->map(function ($value, $key) {
-            if (is_array($value)) {
-                return $this->compileArrayInput($key, $value);
-            }
-
-            if (! is_numeric($value) && ! preg_match('/^(-.$|--.*)/i', $value)) {
-                $value = ProcessUtils::escapeArgument($value);
-            }
-
-            return is_numeric($key) ? $value : "{$key}={$value}";
-        })->implode(' ');
+        return $this;
     }
 }
