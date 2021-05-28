@@ -4,15 +4,10 @@
 namespace DionTech\Scheduler\Models;
 
 
-use Illuminate\Console\Application;
-use Illuminate\Console\Scheduling\CacheEventMutex;
 use Illuminate\Console\Scheduling\Event;
-use Illuminate\Console\Scheduling\EventMutex;
 use Illuminate\Console\Scheduling\Schedule;
-use Illuminate\Container\Container;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\ProcessUtils;
 
 class ScheduledCommand extends Model
 {
@@ -31,32 +26,25 @@ class ScheduledCommand extends Model
         'fluent' => '{}'
     ];
 
+    /**
+     * @return Event
+     */
     public function event(): Event
     {
-        $container = Container::getInstance();
-        $schedule = app()->get(Schedule::class);
+        $schedule = new Schedule();
 
-        $arguments = $this->arguments;
-        $method = array_shift($arguments);
-
-        /*
-        if (count($arguments)) {
-            $method .= ' '.$schedule->compileParameters($arguments);
-        }
-
-        $eventMutex =  $container->bound(EventMutex::class)
-            ? $container->make(EventMutex::class)
-            : $container->make(CacheEventMutex::class);
-        */
-
-        $event = $schedule->exec($method, $arguments);
+        $event = $schedule->{$this->method}(...$this->arguments);
 
         $this->fluently($event);
 
         return $event;
     }
 
-    public function fluently(Event &$event)
+    /**
+     * @param Event $event
+     * @return $this
+     */
+    public function fluently(Event &$event): ScheduledCommand
     {
         foreach ($this->fluent as $fluentKey => $fluentValue) {
             if (is_array($fluentValue)) {

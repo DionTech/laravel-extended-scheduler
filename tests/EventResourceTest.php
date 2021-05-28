@@ -96,7 +96,7 @@ class EventResourceTest extends \Tests\TestCase
         ]);
 
         $event = $model->event();
-        $this->assertTrue(Str::is('test:command*', $event->command));
+        $this->assertTrue(Str::is('*test:command*', $event->command));
         $this->assertEquals('0 0 * * *', $event->expression);
         $this->assertTrue(Str::is('*Taylor*', $event->command));
         $this->assertTrue(Str::is('*--force*', $event->command));
