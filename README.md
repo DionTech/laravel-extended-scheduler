@@ -3,6 +3,8 @@
 This package allows you to configure the scheduled tasks of the app via (database) model. It was developed to avoid handling these
 configurations via a config file only, cause then we cannot share the same repo to n server instances when running different tasks is needed at each server.
 
+This package will extend the laravel scheduler, so all coded scheduled tasks will still be available.
+
 # installation
 
 ```shell
@@ -70,7 +72,7 @@ At the moment you can do something similar to the following:
 
 See https://laravel.com/docs/8.x/scheduling to get an idea of how it can be used.
 
-## solve normilize inserted model to readable structure 
+## normalizing inserted model to readable structure 
 
 ```php
 
@@ -93,6 +95,16 @@ See https://laravel.com/docs/8.x/scheduling to get an idea of how it can be used
     $expression = $event->rexpression; //something like "0 * * * 1-5"
     $description = $event->description; //something like "new \App\Jobs\TestJob"
 ```
+
+## make a command active / inactive
+
+Each ScheduledCommand can be set to inactive / active by its property 'is_active'.
+the default value is false, so you must explicitly activate the command to be recognized 
+in the laravel scheduler.
+
+## add description / notices to the command
+
+Each ScheduledCommand have a property 'description', where you can save additional notices if needed.
 
 # NextSteps
 
