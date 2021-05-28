@@ -15,6 +15,9 @@ class ScheduledCommand extends Model
 
     protected $fillable = ['method', 'arguments', 'fluent', 'is_active', 'description'];
 
+    /** @var Schedule */
+    private $schedule;
+
     protected $casts = [
         'arguments' => 'array',
         'fluent' => 'array',
@@ -31,7 +34,7 @@ class ScheduledCommand extends Model
      */
     public function event(): Event
     {
-        $schedule = new Schedule();
+        $schedule = $this->getSchedule();
 
         $event = $schedule->{$this->method}(...$this->arguments);
 
@@ -56,5 +59,28 @@ class ScheduledCommand extends Model
         }
 
         return $this;
+    }
+
+    /**
+     * @param Schedule $schedule
+     * @return $this
+     */
+    public function setSchedule(Schedule $schedule)
+    {
+        $this->schedule = $schedule;
+
+        return $this;
+    }
+
+    /**
+     * @return Schedule
+     */
+    public function getSchedule()
+    {
+        if (! $this->schedule instanceof Schedule) {
+            $this->setSchedule(new Schedule());
+        }
+
+        return $this->schedule;
     }
 }
