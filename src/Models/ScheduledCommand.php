@@ -25,8 +25,8 @@ class ScheduledCommand extends Model
     ];
 
     protected $attributes = [
-        'arguments' => '{}',
-        'fluent' => '{}'
+        'arguments' => '[""]',
+        'fluent' => '{"cron": ["* * * * *"]}'
     ];
 
     /**
