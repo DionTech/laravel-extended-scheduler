@@ -69,6 +69,14 @@ class BaseModelTest extends \Tests\TestCase
 
     }
 
+    public function test_avoid_exception_on_empty_object()
+    {
+        $command = new ScheduledCommand();
+
+        $this->assertStringContainsString('artisan', $command->event()->command);
+        $this->assertEquals('* * * * *', $command->event()->expression);
+    }
+
     public function test_schedule_list_examples()
     {
         $this->setUpScheduler();
