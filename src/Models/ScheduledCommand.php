@@ -19,6 +19,7 @@ class ScheduledCommand extends Model
     private $schedule;
 
     protected $casts = [
+        'method' => 'command',
         'arguments' => 'array',
         'fluent' => 'array',
         'is_active' => 'boolean'
