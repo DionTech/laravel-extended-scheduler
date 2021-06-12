@@ -12,6 +12,11 @@
         "php": "^7.4|^8.0",
         "laravel/framework": "^8.0"
     },
+    "require-dev": {
+        "orchestra/testbench": "^4.9|^5.8|^6.3",
+        "phpunit/phpunit": "^9.0",
+        "mockery/mockery": "^1.4"
+    },
     "autoload": {
         "psr-4": {
             "DionTech\\Scheduler\\": "src"
