@@ -12,7 +12,7 @@ use Illuminate\Support\Str;
 use Mockery as m;
 use \Illuminate\Foundation\Testing\DatabaseMigrations;
 
-class EventResourceTest extends \Tests\TestCase
+class EventResourceTest extends TestCase
 {
     use DatabaseMigrations;
 

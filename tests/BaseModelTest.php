@@ -12,7 +12,7 @@ use Illuminate\Support\Str;
 use Mockery as m;
 use \Illuminate\Foundation\Testing\DatabaseMigrations;
 
-class BaseModelTest extends \Tests\TestCase
+class BaseModelTest extends TestCase
 {
     use DatabaseMigrations;
 
