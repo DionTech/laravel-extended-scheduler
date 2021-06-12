@@ -1,3 +1,5 @@
+[![run-tests](https://github.com/DionTech/laravel-extended-scheduler/actions/workflows/run-tests.yml/badge.svg?branch=main)](https://github.com/DionTech/laravel-extended-scheduler/actions/workflows/run-tests.yml)
+
 # Extend Laravel scheduler to can config tasks via model
 
 This package allows you to configure the scheduled tasks of the app via (database) model. It was developed to avoid handling these
