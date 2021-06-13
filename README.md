@@ -1,4 +1,10 @@
+[![Latest Version](https://img.shields.io/packagist/v/diontech/laravel-extended-scheduler?label=version)](https://packagist.org/packages/diontech/laravel-extended-scheduler/)
 [![run-tests](https://github.com/DionTech/laravel-extended-scheduler/actions/workflows/run-tests.yml/badge.svg?branch=main)](https://github.com/DionTech/laravel-extended-scheduler/actions/workflows/run-tests.yml)
+![GitHub last commit](https://img.shields.io/github/last-commit/diontech/laravel-extended-scheduler)
+![GitHub issues](https://img.shields.io/github/issues-raw/diontech/laravel-extended-scheduler)
+[![Packagist Downloads](https://img.shields.io/packagist/dm/diontech/laravel-extended-scheduler.svg?label=packagist%20downloads)](https://packagist.org/packages/diontech/laravel-extended-scheduler)
+[![License](https://img.shields.io/badge/license-mit-blue.svg)](https://github.com/diontech/laravel-extended-scheduler/blob/main/LICENSE.md)
+![Twitter Follow](https://img.shields.io/twitter/follow/dion_tech?style=social)
 
 # Extend Laravel scheduler to can config tasks via model
 
