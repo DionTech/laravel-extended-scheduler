@@ -5,6 +5,7 @@ namespace DionTech\Scheduler;
 
 
 use DionTech\Scheduler\Contracts\ScheduledCommandRepositoryContract;
+use DionTech\Scheduler\Support\Helper\ModelAbstractor;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\ServiceProvider;
 use DionTech\Scheduler\Repositories\ScheduledCommandRepository;
@@ -23,6 +24,10 @@ class SchedulerServiceProvider extends ServiceProvider
         $this->app->bind(ScheduledCommandRepositoryContract::class, function() {
             $class = config('scheduler.driver');
             return new $class;
+        });
+
+        $this->app->bind('scheduledCommand', function($app) {
+            return new ModelAbstractor();
         });
     }
 

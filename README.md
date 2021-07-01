@@ -25,7 +25,22 @@ php artisan migrate
 
 # using
 
-## model based handling
+## Facade based handling
+
+Instead of used model based handling mentioned below, you can also do Facade based handling, like:
+
+```php 
+\DionTech\Scheduler\Support\Facades\ScheduledCommand\ScheduledCommand::arguments([
+    'foo'
+])->fluent([
+    'cron' => [
+        '* * * * *'
+    ]
+])->isActive()
+->create();
+```
+
+## Model based handling
 At the moment you can do something similar to the following:
 
 ```php
@@ -80,7 +95,7 @@ At the moment you can do something similar to the following:
 
 See https://laravel.com/docs/8.x/scheduling to get an idea of how it can be used.
 
-## normalizing inserted model to readable structure 
+### normalizing inserted model to readable structure 
 
 ```php
 
@@ -100,19 +115,36 @@ See https://laravel.com/docs/8.x/scheduling to get an idea of how it can be used
        
     $event = $model->event(); //returns \Illuminate\Console\Scheduling\Event
     $command = $event->command; //something like "/usr/local/Cellar/php@7.4/7.4.16/bin/php' 'artisan' foo"
-    $expression = $event->rexpression; //something like "0 * * * 1-5"
+    $expression = $event->expression; //something like "0 * * * 1-5"
     $description = $event->description; //something like "new \App\Jobs\TestJob"
 ```
 
-## make a command active / inactive
+### make a command active / inactive
 
 Each ScheduledCommand can be set to inactive / active by its property 'is_active'.
 the default value is false, so you must explicitly activate the command to be recognized 
 in the laravel scheduler.
 
-## add description / notices to the command
+### add description / notices to the command
 
 Each ScheduledCommand have a property 'description', where you can save additional notices if needed.
+
+## get all registered / available commands of your application
+
+### model based
+
+```php 
+$commands = (new \DionTech\Scheduler\Support\Helper\CommandLister)->all();
+```
+
+### request response based
+
+insert this in your controller, that's it:
+
+```php
+return (new \DionTech\Scheduler\Http\Responses\ListAllCommandsResponse())
+    ->toResponse($request);
+```
 
 # NextSteps
 
