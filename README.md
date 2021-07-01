@@ -129,7 +129,22 @@ in the laravel scheduler.
 
 Each ScheduledCommand have a property 'description', where you can save additional notices if needed.
 
+## get all registered / available commands of your application
 
+### model based
+
+```php 
+$commands = (new \DionTech\Scheduler\Support\Helper\CommandLister)->all();
+```
+
+### request response based
+
+insert this in your controller, that's it:
+
+```php
+return (new \DionTech\Scheduler\Http\Responses\ListAllCommandsResponse())
+    ->toResponse($request);
+```
 
 # NextSteps
 
