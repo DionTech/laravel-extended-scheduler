@@ -7,12 +7,25 @@ namespace DionTech\Scheduler\Support\Helper;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Console\Events\ArtisanStarting;
 
+/**
+ * Class CommandLister
+ * @package DionTech\Scheduler\Support\Helper
+ */
 class CommandLister
 {
+    /**
+     * @var array
+     */
     protected $struct = [];
 
+    /**
+     * @var
+     */
     protected $commands;
 
+    /**
+     * @return array
+     */
     public function all()
     {
         return $this->getCommands()
@@ -20,6 +33,9 @@ class CommandLister
             ->struct;
     }
 
+    /**
+     * @return $this
+     */
     protected function mapToReadable()
     {
         foreach ($this->commands as $name => $command) {
@@ -33,10 +49,13 @@ class CommandLister
         return $this;
     }
 
+    /**
+     * @return $this
+     */
     protected function getCommands()
     {
         $this->commands = app()->get(Kernel::class)->all();
-        //dd($this->commands);
+
         return $this;
     }
 }
