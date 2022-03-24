@@ -13,6 +13,11 @@ configurations via a config file only, cause then we cannot share the same repo 
 
 This package will extend the laravel scheduler, so all coded scheduled tasks will still be available.
 
+# releases / laravel support
+
+- laravel 8: v1.2.x
+- laravel 9: v1.3.x
+
 # installation
 
 ```shell
